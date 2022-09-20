@@ -1,0 +1,129 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: grid;
+    grid-template-rows: 90% 10%;
+    justify-content: center;
+    border: 1px solid red;
+}
+
+.main-container {
+    display: grid;
+        grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    grid-template-areas:    ". . . . . . . . ."
+                            ". Lcd Lcd Lcd Lcd Lcd Lcd Lcd ."
+                            ". Lcd Lcd Lcd Lcd Lcd Lcd Lcd ."
+                            ". . . . . . . . ."
+                            ". key key key key key key key ."
+                            ". key key key key key key key ."
+                            ". key key key key key key key ."
+                            ". key key key key key key key ."
+                            ". key key key key key key key ."
+                            ". . . . . . . . ."
+                            "footer footer footer footer footer footer footer footer footer";
+    background-color: #565656;
+    min-width: 300px;
+    aspect-ratio: 1/1.5;
+    border: 1px solid red;
+}
+
+.lcd {
+    grid-area: Lcd;
+    background-color: aliceblue;
+}
+
+.keyboard-container {
+    grid-area: key;
+    display: grid;
+    grid-template-columns: repeat(9, auto);
+    grid-template-rows: repeat(5, auto);
+    grid-template-areas:  ". CA . C . sign . div-s ."
+                ". nine . eight . seven . mul-s ."
+                ". six . five . four . min-s ."
+                ". one . two . three . plu-s ."
+                ". zer0 . d0t . equal equal .";
+    background-color: antiquewhite;
+}
+
+.key-Ca {
+    grid-area: CA;
+}
+
+.key-c {
+    grid-area: C;
+}
+
+.key-sign {
+    grid-area: sign;
+}
+
+.key-div-s {
+    grid-area: div-a;
+}
+
+.key-seven {
+    grid-area: seven;
+}
+
+.key-eight {
+    grid-area: eight;
+}
+
+.key-nine {
+    grid-area: nine;
+}
+
+.key-mul-s {
+    grid-area: mul-s;
+}
+
+.key-four {
+    grid-area: four;
+}
+
+.key-five {
+    grid-area: five;
+}
+
+.key-six {
+    grid-area: six;
+}
+
+.key-min-s {
+    grid-area: min-s;
+}
+
+.key-one {
+    grid-area: one;
+}
+
+.key-two {
+    grid-area: two;
+}
+
+.key-three {
+    grid-area: three;
+}
+
+.key-plus-s {
+    grid-area: plu-s;
+}
+
+.key-zero {
+    grid-area: zer0;
+}
+
+.key-dot {
+    grid-area: d0t;
+}
+
+.key-equal {
+    grid-area: equal;
+}
+
+.footer {
+    grid-area: footer;
+}
