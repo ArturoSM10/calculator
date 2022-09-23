@@ -3,50 +3,90 @@
 }
 
 body {
-    display: grid;
-    grid-template-rows: 90% 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    border: 1px solid red;
+    height: 100vh;
+    margin: 0;
+}
+
+main {
+    flex-grow: 1;
 }
 
 .main-container {
     display: grid;
-        grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: repeat(10, 1fr);
+    margin-top: 1rem;
+    background-color: gray;
+    width: 500px; /*pendiente*/
+    aspect-ratio: 1/1.1;
     grid-template-areas:    ". . . . . . . . ."
-                            ". Lcd Lcd Lcd Lcd Lcd Lcd Lcd ."
-                            ". Lcd Lcd Lcd Lcd Lcd Lcd Lcd ."
+                            ". lcd lcd lcd lcd lcd lcd lcd ."
+                            ". lcd lcd lcd lcd lcd lcd lcd ."
                             ". . . . . . . . ."
                             ". key key key key key key key ."
                             ". key key key key key key key ."
                             ". key key key key key key key ."
                             ". key key key key key key key ."
                             ". key key key key key key key ."
-                            ". . . . . . . . ."
-                            "footer footer footer footer footer footer footer footer footer";
-    background-color: #565656;
-    min-width: 300px;
-    aspect-ratio: 1/1.5;
-    border: 1px solid red;
+                            ". key key key key key key key ."
+                            ". key key key key key key key ."
+                            ". key key key key key key key ."
+                            ". key key key key key key key ."
+                            ". key key key key key key key ."
+                            ". key key key key key key key ."
+                            ". . . . . . . . .";
+    grid-template-rows: 0.5fr repeat(2,1fr) 0.5fr repeat(11,1fr) 0.5fr;
+    grid-template-columns: 0.5fr repeat(7,1fr) 0.5fr;
 }
 
 .lcd {
-    grid-area: Lcd;
-    background-color: aliceblue;
+    grid-area:  lcd;
+    background-color: rgba(58, 150, 15, 0.719);
+    box-shadow: -1px 1px 1px inset #000, -3px 3px 15px inset #000;
 }
 
 .keyboard-container {
     grid-area: key;
     display: grid;
-    grid-template-columns: repeat(9, auto);
-    grid-template-rows: repeat(5, auto);
-    grid-template-areas:  ". CA . C . sign . div-s ."
-                ". nine . eight . seven . mul-s ."
-                ". six . five . four . min-s ."
-                ". one . two . three . plu-s ."
-                ". zer0 . d0t . equal equal .";
-    background-color: antiquewhite;
+    grid-template-areas:    ". . . . . . . . ."
+                            ". CA . C . sign . div-s ."
+                            ". . . . . . . . ."
+                            ". seven . eight . nine . mul-s ."
+                            ". . . . . . . . ."
+                            ". four . five . six . min-s ."
+                            ". . . . . . . . ."
+                            ". one . two . three . plu-s ."
+                            ". . . . . . . . ."
+                            ". zer0 . d0t . equal equal equal ."
+                            ". . . . . . . . .";
+    grid-template-columns: 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr;
+    grid-template-rows: 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr;
+    background-color: rgba(116, 16, 82, 0.678);
 }
+
+div {
+    font-size: 3rem;
+    text-align: center;
+    line-height: 1.5;
+    box-shadow: 1px 1px 1px #000,
+                2px 2px 2px #000, 
+                3px 3px 3px #000, 
+                4px 4px 4px #000; 
+}
+
+.selected {
+    background-color: rgba(190, 20, 134, 0.678);
+}
+
+div:active {
+    box-shadow: -1px -1px 4px inset #000;
+}
+
+.keyboard-container > div {
+    border-radius: 100%;
+} /*ver y cambiar*/
 
 .key-Ca {
     grid-area: CA;
@@ -61,7 +101,7 @@ body {
 }
 
 .key-div-s {
-    grid-area: div-a;
+    grid-area: div-s;
 }
 
 .key-seven {
@@ -124,6 +164,6 @@ body {
     grid-area: equal;
 }
 
-.footer {
-    grid-area: footer;
+footer {
+    
 }
