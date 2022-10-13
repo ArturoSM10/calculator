@@ -4,6 +4,7 @@
 
 body {
     display: flex;
+    font-family: 'Orbitron', sans-serif;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -17,9 +18,9 @@ main {
 
 .main-container {
     display: grid;
-    margin-top: 1rem;
-    background-color: gray;
-    width: 500px; /*pendiente*/
+    margin-top: 15%;
+    background-color: #808080;
+    min-width: 300px;
     aspect-ratio: 1/1.1;
     grid-template-areas:    ". . . . . . . . ."
                             ". lcd lcd lcd lcd lcd lcd lcd ."
@@ -39,10 +40,15 @@ main {
                             ". . . . . . . . .";
     grid-template-rows: 0.5fr repeat(2,1fr) 0.5fr repeat(11,1fr) 0.5fr;
     grid-template-columns: 0.5fr repeat(7,1fr) 0.5fr;
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px black, 2px 2px 4px black, 3px 3px 4px black, 4px 4px 4px black;
 }
 
 .lcd {
     grid-area:  lcd;
+    font-size: 1.5rem;
+    text-align: right;
+    padding: 0.6rem 1rem;
     background-color: rgba(58, 150, 15, 0.719);
     box-shadow: -1px 1px 1px inset #000, -3px 3px 15px inset #000;
 }
@@ -63,30 +69,28 @@ main {
                             ". . . . . . . . .";
     grid-template-columns: 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr;
     grid-template-rows: 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr;
-    background-color: rgba(116, 16, 82, 0.678);
 }
 
-div {
-    font-size: 3rem;
+.keyboard-container > div {
+    font-size: 1.5rem;
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.6;
     box-shadow: 1px 1px 1px #000,
                 2px 2px 2px #000, 
                 3px 3px 3px #000, 
                 4px 4px 4px #000; 
+    border-radius: 100%;
+    background-color: rgb(31, 30, 30);
+    color: #fff;
 }
 
-.selected {
-    background-color: rgba(190, 20, 134, 0.678);
+.keyboard-container > .selected {
+    background-color: rgba(34, 34, 34, 0.5);
 }
 
-div:active {
+.keyboard-container > div:active {
     box-shadow: -1px -1px 4px inset #000;
 }
-
-.keyboard-container > div {
-    border-radius: 100%;
-} /*ver y cambiar*/
 
 .key-Ca {
     grid-area: CA;
