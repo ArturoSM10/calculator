@@ -4,173 +4,157 @@
 
 body {
     display: flex;
-    font-family: 'Orbitron', sans-serif;
-    background-color: rgb(211, 211, 211);
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
-    margin: 0;
+    align-items: center;
+    background: linear-gradient(to right,#28313b, #485461);
 }
-
 main {
     flex-grow: 1;
+    max-width: 1500px;
 }
 
 .main-container {
-    display: grid;
-    margin-top: 15%;
-    background-color: #808080;
-    min-width: 300px;
-    max-width: 400px;
-    aspect-ratio: 1/1.1;
-    grid-template-areas:    ". . . . . . . . ."
-                            ". lcd lcd lcd lcd lcd lcd lcd ."
-                            ". lcd lcd lcd lcd lcd lcd lcd ."
-                            ". . . . . . . . ."
-                            ". key key key key key key key ."
-                            ". key key key key key key key ."
-                            ". key key key key key key key ."
-                            ". key key key key key key key ."
-                            ". key key key key key key key ."
-                            ". key key key key key key key ."
-                            ". key key key key key key key ."
-                            ". key key key key key key key ."
-                            ". key key key key key key key ."
-                            ". key key key key key key key ."
-                            ". key key key key key key key ."
-                            ". . . . . . . . .";
-    grid-template-rows: 0.5fr repeat(2,1fr) 0.5fr repeat(11,1fr) 0.5fr;
-    grid-template-columns: 0.5fr repeat(7,1fr) 0.5fr;
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+    width: clamp(290px, 30vw, 600px);
+    aspect-ratio: 1/1.5;
     border-radius: 10px;
-    box-shadow: 1px 1px 4px black, 2px 2px 4px black, 3px 3px 4px black, 4px 4px 4px black;
 }
 
 .lcd {
-    grid-area:  lcd;
-    font-size: 1.5rem;
+    display: flex;
+    width: 100%;
+    color: #fff;
+    min-height: 20%;
+    font-size: 1.9rem;
+    justify-content: end;
+    align-items: center;
+    word-break: break-all;
     text-align: right;
-    padding: 0.6rem 1rem;
-    background-color: rgba(58, 150, 15, 0.719);
-    box-shadow: -1px 1px 1px inset #000, -3px 3px 15px inset #000;
-    word-wrap: break-word;
+    padding: 1rem;
+    background-color: rgba(40, 49, 59, 0.5);
 }
 
 .keyboard-container {
-    grid-area: key;
+    flex-basis: 80%;
     display: grid;
-    grid-template-areas:    ". . . . . . . . ."
-                            ". CA . C . sign . div-s ."
-                            ". . . . . . . . ."
-                            ". seven . eight . nine . mul-s ."
-                            ". . . . . . . . ."
-                            ". four . five . six . min-s ."
-                            ". . . . . . . . ."
-                            ". one . two . three . plu-s ."
-                            ". . . . . . . . ."
-                            ". zer0 . d0t . equal equal equal ."
-                            ". . . . . . . . .";
-    grid-template-columns: 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr;
-    grid-template-rows: 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr;
+    grid-template-areas: "CA C sign sign-div"
+                         "seven eight nine sign-mul"
+                         "four five six sign-min"
+                         "one two three sign-plu"
+                         "zero dot equal equal";
+    width: 100%;
+    gap: 1px;
+    padding: 1px;
 }
 
-.keyboard-container > div {
-    font-size: 1.5rem;
-    text-align: center;
-    line-height: 1.6;
-    box-shadow: 1px 1px 1px #000,
-                2px 2px 2px #000, 
-                3px 3px 3px #000, 
-                4px 4px 4px #000; 
-    border-radius: 100%;
-    background-color: rgb(31, 30, 30);
-    color: #fff;
+.key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #929191;
+    transition: all 40ms;
 }
 
-.keyboard-container > .selected {
-    background-color: rgba(34, 34, 34, 0.5);
+.selected {
+    box-shadow: 0px 0px 100px inset rgba(0, 0, 0, 0.3);
 }
 
-.keyboard-container > div:active {
-    box-shadow: -1px -1px 4px inset #000;
+.key:hover {
+    box-shadow: 0px 0px 100px inset rgba(206, 206, 206, 0.5);
 }
 
-.key-Ca {
+.key:active {
+    box-shadow: 0px 0px 10px 3px inset rgba(0, 0, 0, 0.5);
+}
+
+.div-s,
+.mul-s,
+.min-s,
+.plus-s {
+    background-color: #ffd95c;
+}
+
+.Ca {
     grid-area: CA;
 }
 
-.key-c {
+.C {
     grid-area: C;
 }
 
-.key-sign {
+.sign {
     grid-area: sign;
 }
 
-.key-div-s {
-    grid-area: div-s;
+.div-s {
+    grid-area: sign-div;
 }
 
-.key-seven {
+.seven {
     grid-area: seven;
 }
 
-.key-eight {
+.eight {
     grid-area: eight;
 }
 
-.key-nine {
+.nine {
     grid-area: nine;
 }
 
-.key-mul-s {
-    grid-area: mul-s;
+.mul-s {
+    grid-area: sign-mul;
 }
 
-.key-four {
+.four {
     grid-area: four;
 }
 
-.key-five {
+.five {
     grid-area: five;
 }
 
-.key-six {
+.six {
     grid-area: six;
 }
 
-.key-min-s {
-    grid-area: min-s;
+.min-s {
+    grid-area: sign-min;
 }
 
-.key-one {
+.one {
     grid-area: one;
 }
 
-.key-two {
+.two {
     grid-area: two;
 }
 
-.key-three {
+.three {
     grid-area: three;
 }
 
-.key-plus-s {
-    grid-area: plu-s;
+.plu-s {
+    grid-area: sign-plu;
 }
 
-.key-zero {
-    grid-area: zer0;
-}
-
-.key-dot {
-    grid-area: d0t;
-}
-
-.key-equal {
+.equal {
     grid-area: equal;
+    background-color: #f44336;
+    border-radius: 0 0 10px 0;
 }
 
-footer {
-    
+.dot {
+    grid-area: dot;
 }
+
+.zero {
+    grid-area: zero;
+    border-radius: 0 0 0 10px;
+}
+
+
+
