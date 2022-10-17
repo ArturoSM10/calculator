@@ -2,17 +2,27 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right,#28313b, #485461);
     font-family: 'Roboto', sans-serif;
     font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+    margin: 0;
+    height: 100%;
 }
 main {
     flex-grow: 1;
+    background-image: url(./back_to_school_student-15.jpg);
+    background-size: 15%;
+    background-repeat: repeat;
+    padding: 1rem 0;
+    width: 100%;
     max-width: 1500px;
 }
 
@@ -23,6 +33,13 @@ main {
     width: clamp(290px, 30vw, 600px);
     aspect-ratio: 1/1.4;
     border-radius: 10px;
+    margin: 0 auto;
+    box-shadow: 1px 1px 4px 1px rgb(0 0 0), 
+                2px 2px 4px 1px rgb(0 0 0), 
+                -3px -3px 15px 1px rgb(179 179 179), 
+                4px 4px 3px 1.5px rgb(0 0 0), 
+                13px 12px 33px 9px rgb(161 161 161 / 50%);
+    user-select: none;
 }
 
 .lcd {
@@ -37,6 +54,7 @@ main {
     text-align: right;
     padding: 1rem;
     background-color: rgba(40, 49, 59, 0.5);
+    border-radius: 10px 10px 0 0;
 }
 
 .keyboard-container {
@@ -159,8 +177,11 @@ main {
 }
 
 .footer {
+    background: linear-gradient(to right,#28313b, #485461);
+    width: 100%;
     font-size: 1.4rem;
     height: fit-content;
     color: #fff;
+    text-align: center;
 }
 
