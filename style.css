@@ -9,7 +9,6 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     font-family: 'Roboto', sans-serif;
     font-size: clamp(1.8rem, 2.5vw, 2.5rem);
@@ -18,7 +17,7 @@ body {
 }
 main {
     flex-grow: 1;
-    background-image: url(./back_to_school_student-15.jpg);
+    background-image: url(./assets/images/back_to_school_student-15.jpg);
     background-size: 15%;
     background-repeat: repeat;
     padding: 1rem 0;
