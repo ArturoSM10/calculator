@@ -176,11 +176,15 @@ main {
 }
 
 .footer {
+    display: flex;
     background: linear-gradient(to right,#28313b, #485461);
     width: 100%;
     font-size: 1.4rem;
     height: fit-content;
     color: #fff;
-    text-align: center;
+    align-items: center;
 }
-
+.help {
+    justify-self: flex-end;
+    align-self: center;
+}
