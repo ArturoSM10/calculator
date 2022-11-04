@@ -1,142 +1,138 @@
-let number1= "",
-    number2= "",
-    operator= "";
-keyboard();
+let number = ``,
+    operator =  ``;
+keyborad();
 
-function keyboard() {
-    const keyboardContainer = document.querySelector(`.keyboard-container`);
+function keyborad() {
+    const keys = document.querySelector(`.keyboard-container`);
+    const operationScreen = document.querySelector(`.operation`);
     const lcd = document.querySelector(`.lcd`);
-    keyboardContainer.addEventListener(`click` , (e)=>{
+    let screenUpdate = false;
+    keys.addEventListener(`click`, (e) => {
         if (e.target && e.target.classList.contains(`key`)) {
-            for(let item of keyboardContainer.children) {
+            for(let item of keys.children) {
                 if (item.classList.contains(`selected`)) {
                     item.classList.remove(`selected`);
                 }
             }
-
-
-
-
-            
-            switch (e.target.textContent) {
-                case `CA`:
-                    number2 = ``;
-                    lcd.textContent = `0`; 
-                break;
-                case `C`:
-                    number2 = number2.substring(0,number2.length-1);
-                    console.log(number2)
-                    lcd.textContent = number2;
-                    if (number2.length === 0) {
-                        lcd.textContent = `0`;
-                    }
-                break;
-                case `+/-`:
-                    
-                break;
-                default:
-                    if (e.target.id === `+` ||
-                        e.target.id === `-` ||
-                        e.target.id === `*` ||
-                        e.target.id === `/`) {
-                        number1 = number2;
-                        number2 = ``;
-                        operator = e.target.id;
-                        lcd.textContent = ``;
-                        console.log(operator);
-                    }
-                    else if (e.target.id === `=`) {
-                        console.log(`he dado igual`);
-                        number2 = operate(number1,number2, operator, lcd);
-                        lcd.textContent = number2;
-                    }
-                    else {
-                        console.log(number1)
-                        number2= number2+e.target.textContent;
-                        console.log(number2);
-                        lcd.textContent = number2;
-                    }
-                break;
-            }
-
-
-
-
-
             e.target.classList.add(`selected`);
 
-
-
-
-
-            return number1;
-        }
-    });
-
-    document.addEventListener(`keydown`, (e) => {
-        if (e.key>=`0` && e.key<=`9` ||
-            e.key === `+` ||
-            e.key === `-` ||
-            e.key === `*` ||
-            e.key === `/` ||
-            e.key === `.` ||
-            e.key === `=` ||
-            e.key === `Backspace` ||
-            e.key === `s` ||
-            e.key === `Delete`) {
-            for(let item of keyboardContainer.children) {
-                if (item.classList.contains(`selected`)) {
-                    item.classList.remove(`selected`);
-                }
-                if (item.id === e.key) {
-                    item.classList.add(`selected`);
-                }
+            switch (true) {
+                case e.target.classList.contains(`Ca`):
+                    lcd.textContent = ``;
+                    operationScreen.textContent = ``;
+                    number = ``; //no se si ponerla a cero
+                    operator = ``;
+                    break;
+                case e.target.classList.contains(`c`):
+                    deleteButton(lcd);
+                    break;
+                case e.target.classList.contains(`sign`):
+                    signButton(lcd);
+                    break;
+                case e.target.classList.contains(`equal`):
+                    if (number.length > 0 && lcd.textContent.length > 0 && lcd.textContent !== `.`) {
+                        operationScreen.textContent = `${number} ${operator} ${lcd.textContent} =`;
+                        lcd.textContent = operate(number, lcd.textContent, operator);
+                        number = ``;
+                        operator= ``;
+                    }
+                    break;
+                case e.target.classList.contains(`sign-k`):
+                    if (number.length === 0 && lcd.textContent.length === 0 || lcd.textContent === `.`) return;
+                    else if (number.length > 0 && lcd.textContent.length > 0 && lcd.textContent !== `.`) {
+                        lcd.textContent = operate(number, lcd.textContent, operator);
+                        number = ``;
+                    }
+                    operator = e.target.textContent;
+                    if (screenUpdate === true) {
+                        number = lcd.textContent;
+                        lcd.textContent = ``;
+                    }
+                    operationScreen.textContent = `${number} ${operator}`;
+                    screenUpdate = false;
+                    break;
+                case e.target.classList.contains(`dot`):
+                    screenUpdate = writeDot(lcd, e.target);
+                    break;
+                default:
+                    screenUpdate = writeNumbers(lcd, e.target);
+                    break;
             }
-            console.log(number1)
-            number1= number1+e.key;
-            console.log(number1);
-            return number1;
         }
     });
+}
 
+function add(a,b) {
+    return Number(a) + Number(b);
+}
 
+function subtract(a,b) {
+    return Number(a) - Number(b);
+}
 
+function multiply(a,b) {
+    return Number(a) * Number(b);
+}
 
-    function add(a,b) {
-        return parseInt(a) + parseInt(b);
+function divide(a,b) {
+    if (b === `0`) {
+        alert(`Can't divide by 0`);
+        return;
     }
+    return Number(a) / Number(b);
+}
 
-    function subtract(a,b) {
-        return parseInt(a) - parseInt(b);
+function operate(a, b, operator) {
+    switch (operator) {
+        case `+`:
+            a = add(a,b);
+            break;
+        case `-`:
+            a = subtract(a,b);
+            break;
+        case `x`:
+            a = multiply(a,b);
+            break;
+        case `/`:
+            a = divide(a,b);
+            break;
     }
+    return a;
+}
 
-    function multiply(a,b) {
-        return parseInt(a) * parseInt(b);
+function writeNumbers(lcd, e) {
+    if (lcd.textContent === `0`) {
+        lcd.textContent = e.textContent;
     }
-
-    function divide(a,b) {
-        return parseInt(a) / parseInt(b);
+    else {
+        lcd.textContent += e.textContent;
     }
+    return true; 
+}
 
-    function operate(a, b, sign, lcd) {
-        let result = 0;
-        switch (sign) {
-            case `+`:
-                result=add(a,b);
-            break;
-            case `-`:
-                result=subtract(a,b);
-            break;
-            case `*`:
-                result=multiply(a,b);
-            break;
-            case `/`:
-                result=divide(a,b);
-            break;
-            default:
-            break;  
-        }
-        // lcd.textContent = result;
-        return result;
+function writeDot(lcd, e) {
+    if (lcd.textContent.includes(`.`)) return;
+    lcd.textContent += e.textContent;
+    return true;
+}
+
+function deleteButton(lcd) {
+    lcd.textContent= lcd.textContent.substring(0, lcd.textContent.length-1)
+    if (lcd.textContent.length === 0) {
+        lcd.textContent = `0`;
     }
 }
+
+function signButton(lcd) {
+    if (!lcd.textContent.includes(`-`)){
+        if (lcd.textContent === `0` || lcd.textContent.length === 0) {
+            return;
+        }
+        lcd.textContent = `-${lcd.textContent}`;
+    }
+    else {
+        lcd.textContent = lcd.textContent.slice(1);
+    }
+}
+
+
