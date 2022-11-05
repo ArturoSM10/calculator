@@ -18,7 +18,7 @@ function keyboard() {
             e.target.classList.add(`selected`);
 
             switch (true) {
-                case e.target.classList.contains(`Ca`):
+                case e.target.classList.contains(`Ac`):
                     clearAllButton(lcd, operationScreen);
                     break;
                 case e.target.classList.contains(`c`):
@@ -58,7 +58,7 @@ function keyboard() {
             return;
         }
         switch (true) {
-            case keyPressedInfo.classList.contains(`Ca`):
+            case keyPressedInfo.classList.contains(`Ac`):
                 clearAllButton(lcd, operationScreen);
                 break;
             case keyPressedInfo.classList.contains(`c`):
@@ -84,15 +84,15 @@ function keyboard() {
 }
 
 function add(a,b) {
-    return roundNumbers(Number(a) + Number(b));
+    return Number(a) + Number(b);
 }
 
 function subtract(a,b) {
-    return roundNumbers(Number(a) - Number(b));
+    return Number(a) - Number(b);
 }
 
 function multiply(a,b) {
-    return roundNumbers(Number(a) * Number(b));
+    return Number(a) * Number(b);
 }
 
 function divide(a,b) {
@@ -100,10 +100,10 @@ function divide(a,b) {
         alert(`Can't divide by 0`);
         return;
     }
-    return roundNumbers(Number(a) / Number(b));
+    return Number(a) / Number(b);
 }
 
-function operate(a, b, operator) {
+function operate(a, b, operator, limitDecimal) {
     switch (operator) {
         case `+`:
             a = add(a,b);
@@ -118,16 +118,26 @@ function operate(a, b, operator) {
             a = divide(a,b);
             break;
     }
-    return a;
+    return limitDecimal(a);
 }
 
 function writeNumbers(lcd, e) {
-    if (lcd.textContent.length >= 9) return true;
-    if (lcd.textContent === `0`) {
-        lcd.textContent = e.textContent;
-    }
-    else {
-        lcd.textContent += e.textContent;
+    let numberOfDecimal;
+    switch (true) {
+        case lcd.textContent.includes(`.`):
+            numberOfDecimal = lcd.textContent.split(`.`);
+            if (numberOfDecimal[1].length >= 3 || lcd.textContent.length >= 9)return true;
+            lcd.textContent += e.textContent;
+            break;
+        default:
+            if (lcd.textContent.length >= 9) return true;
+            if (lcd.textContent === `0`) {
+                lcd.textContent = e.textContent;
+            }
+            else {
+                lcd.textContent += e.textContent;
+            }
+            break;
     }
     return true;
 }
@@ -143,7 +153,6 @@ function deleteButton(lcd) {
     lcd.textContent= lcd.textContent.substring(0, lcd.textContent.length-1)
     if (lcd.textContent.length === 0) {
         lcd.textContent = `0`;
-        number = `0`; //////////pendiente no se si dejarlo en 0 o borrarlo junto el cero de textContent
     }
 }
 
@@ -169,7 +178,7 @@ function signButton(lcd) {
 function equalButton(lcd, operationScreen, operate) {
     if (number.length > 0 && lcd.textContent.length > 0 && lcd.textContent !== `.`) {
         operationScreen.textContent = `${number} ${operator} ${lcd.textContent} =`;
-        lcd.textContent = operate(number, lcd.textContent, operator);
+        lcd.textContent = operate(number, lcd.textContent, operator, limitDecimal);
         number = ``;
         operator= ``;
     }
@@ -178,7 +187,7 @@ function equalButton(lcd, operationScreen, operate) {
 function operationButtons (lcd, operationScreen, e, screenUpdate) {
     if (number.length === 0 && lcd.textContent.length === 0 || lcd.textContent === `.`) return;
     else if (number.length > 0 && lcd.textContent.length > 0 && lcd.textContent !== `.`) {
-        lcd.textContent = operate(number, lcd.textContent, operator);
+        lcd.textContent = operate(number, lcd.textContent, operator, limitDecimal);
         number = ``;
     }
     operator = e.textContent;
@@ -190,17 +199,21 @@ function operationButtons (lcd, operationScreen, e, screenUpdate) {
     return false;  
 }
 
-function roundNumbers(roundedNumber) {
-    if (roundedNumber <= 0.0001) {
-        return roundedNumber.toExponential();
-    }
-    else if (roundedNumber <= 0.49) {
-        return roundedNumber;
+function limitDecimal(myNumber) {
+    myNumber = myNumber.toString();
+    let count;
+    if (myNumber.includes(`.`)) {
+        count = myNumber.split(`.`);
+        if ((count[0].length + count[1].length) <=8) return myNumber;
+        else {
+            if (count[0].length < 8) return `${count[0]}.${count[1].slice(0, 8-count[0].length)}`;
+            else return Number(myNumber).toExponential(4);
+        }
     }
     else {
-        return (Math.round(roundedNumber))*100000000/100000000;
+        if (myNumber.length <=9) return myNumber;
+        else return Number(myNumber).toExponential(4);
     }
-    ///////pendiente
 }
 
 function help() {
