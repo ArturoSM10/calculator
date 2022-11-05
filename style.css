@@ -65,7 +65,7 @@ main {
 .keyboard-container {
     flex-basis: 80%;
     display: grid;
-    grid-template-areas: "AC C sign sign-div"
+    grid-template-areas: "AC Del sign sign-div"
                          "seven eight nine sign-mul"
                          "four five six sign-min"
                          "one two three sign-plu"
@@ -106,8 +106,9 @@ main {
     grid-area: AC;
 }
 
-.C {
-    grid-area: C;
+.Del {
+    grid-area: Del;
+    font-size: clamp(1.7rem, 2.35vw, 2.4rem)
 }
 
 .sign {
