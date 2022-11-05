@@ -21,7 +21,7 @@ function keyboard() {
                 case e.target.classList.contains(`Ac`):
                     clearAllButton(lcd, operationScreen);
                     break;
-                case e.target.classList.contains(`c`):
+                case e.target.classList.contains(`Del`):
                     deleteButton(lcd);
                     break;
                 case e.target.classList.contains(`sign`):
@@ -61,7 +61,7 @@ function keyboard() {
             case keyPressedInfo.classList.contains(`Ac`):
                 clearAllButton(lcd, operationScreen);
                 break;
-            case keyPressedInfo.classList.contains(`c`):
+            case keyPressedInfo.classList.contains(`Del`):
                 deleteButton(lcd);
                 break;
             case keyPressedInfo.classList.contains(`sign`):
