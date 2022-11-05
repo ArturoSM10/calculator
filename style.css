@@ -34,9 +34,9 @@ main {
     margin: 0 auto;
     box-shadow: 1px 1px 4px 1px rgb(0 0 0), 
                 2px 2px 4px 1px rgb(0 0 0), 
-                -3px -3px 15px 1px rgb(179 179 179), 
+                -3px -3px 15px 1px rgb(108 108 108), 
                 4px 4px 3px 1.5px rgb(0 0 0), 
-                13px 12px 33px 9px rgb(161 161 161 / 50%);
+                13px 12px 33px 9px rgb(108 108 108 / 50%);
     user-select: none;
 }
 
