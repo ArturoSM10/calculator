@@ -1,8 +1,9 @@
 let number = ``,
     operator =  ``;
-keyborad();
+keyboard();
+help();
 
-function keyborad() {
+function keyboard() {
     const keys = document.querySelector(`.keyboard-container`);
     const operationScreen = document.querySelector(`.operation`);
     const lcd = document.querySelector(`.lcd`);
@@ -30,7 +31,7 @@ function keyborad() {
                     equalButton(lcd, operationScreen, operate);
                     break;
                 case e.target.classList.contains(`sign-k`):
-                    operationButtons (lcd, operationScreen, e.target, screenUpdate);
+                    screenUpdate = operationButtons (lcd, operationScreen, e.target, screenUpdate);
                     break;
                 case e.target.classList.contains(`dot`):
                     screenUpdate = writeDot(lcd, e.target);
@@ -41,18 +42,57 @@ function keyborad() {
             }
         }
     });
+
+    document.addEventListener(`keydown`, (e)=> {
+        let keyPressedInfo;
+        for(let item of keys.children) {
+            if (item.classList.contains(`selected`)) {
+                item.classList.remove(`selected`);
+            }
+            if (item.id === e.key) {
+                item.classList.add(`selected`);
+                keyPressedInfo = item;
+            }
+        } 
+        if (keyPressedInfo === undefined) {
+            return;
+        }
+        switch (true) {
+            case keyPressedInfo.classList.contains(`Ca`):
+                clearAllButton(lcd, operationScreen);
+                break;
+            case keyPressedInfo.classList.contains(`c`):
+                deleteButton(lcd);
+                break;
+            case keyPressedInfo.classList.contains(`sign`):
+                signButton(lcd);
+                break;
+            case keyPressedInfo.classList.contains(`equal`):
+                equalButton(lcd, operationScreen, operate);
+                break;
+            case keyPressedInfo.classList.contains(`sign-k`):
+                screenUpdate = operationButtons (lcd, operationScreen, keyPressedInfo, screenUpdate);
+                break;
+            case keyPressedInfo.classList.contains(`dot`):
+                screenUpdate = writeDot(lcd, keyPressedInfo);
+                break;
+            default:
+                screenUpdate = writeNumbers(lcd, keyPressedInfo);
+                break;
+        }
+    });
 }
 
 function add(a,b) {
-    return Number(a) + Number(b);
+    return roundNumbers(Number(a) + Number(b));
 }
 
 function subtract(a,b) {
-    return Number(a) - Number(b);
+    return roundNumbers(Number(a) - Number(b));
 }
 
 function multiply(a,b) {
-    return Number(a) * Number(b);
+    return roundNumbers(Number(a) * Number(b));
 }
 
 function divide(a,b) {
@@ -60,7 +100,7 @@ function divide(a,b) {
         alert(`Can't divide by 0`);
         return;
     }
-    return Number(a) / Number(b);
+    return roundNumbers(Number(a) / Number(b));
 }
 
 function operate(a, b, operator) {
@@ -82,16 +122,18 @@ function operate(a, b, operator) {
 }
 
 function writeNumbers(lcd, e) {
+    if (lcd.textContent.length >= 9) return true;
     if (lcd.textContent === `0`) {
         lcd.textContent = e.textContent;
     }
     else {
         lcd.textContent += e.textContent;
     }
-    return true; 
+    return true;
 }
 
 function writeDot(lcd, e) {
+    if (lcd.textContent.length >= 9) return true;
     if (lcd.textContent.includes(`.`)) return;
     lcd.textContent += e.textContent;
     return true;
@@ -101,6 +143,7 @@ function deleteButton(lcd) {
     lcd.textContent= lcd.textContent.substring(0, lcd.textContent.length-1)
     if (lcd.textContent.length === 0) {
         lcd.textContent = `0`;
+        number = `0`; //////////pendiente no se si dejarlo en 0 o borrarlo junto el cero de textContent
     }
 }
 
@@ -144,5 +187,31 @@ function operationButtons (lcd, operationScreen, e, screenUpdate) {
         lcd.textContent = ``;
     }
     operationScreen.textContent = `${number} ${operator}`;
-    screenUpdate = false;  
+    return false;  
+}
+
+function roundNumbers(roundedNumber) {
+    if (roundedNumber <= 0.0001) {
+        return roundedNumber.toExponential();
+    }
+    else if (roundedNumber <= 0.49) {
+        return roundedNumber;
+    }
+    else {
+        return (Math.round(roundedNumber))*100000000/100000000;
+    }
+    ///////pendiente
+}
+
+function help() {
+    const helpHover = document.querySelector(`.help`);
+    const helpWindow = document.querySelector(`.help-window`);
+
+    helpHover.addEventListener(`mouseenter`, (e) => {
+        helpWindow.setAttribute(`style`,`display: block;`);
+    });
+    
+    helpHover.addEventListener(`mouseleave`, (e) => {
+        helpWindow.setAttribute(`style`,`display: none;`);
+    });
 }
