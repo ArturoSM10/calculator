@@ -18,10 +18,7 @@ function keyborad() {
 
             switch (true) {
                 case e.target.classList.contains(`Ca`):
-                    lcd.textContent = ``;
-                    operationScreen.textContent = ``;
-                    number = ``; //no se si ponerla a cero
-                    operator = ``;
+                    clearAllButton(lcd, operationScreen);
                     break;
                 case e.target.classList.contains(`c`):
                     deleteButton(lcd);
@@ -30,26 +27,10 @@ function keyborad() {
                     signButton(lcd);
                     break;
                 case e.target.classList.contains(`equal`):
-                    if (number.length > 0 && lcd.textContent.length > 0 && lcd.textContent !== `.`) {
-                        operationScreen.textContent = `${number} ${operator} ${lcd.textContent} =`;
-                        lcd.textContent = operate(number, lcd.textContent, operator);
-                        number = ``;
-                        operator= ``;
-                    }
+                    equalButton(lcd, operationScreen, operate);
                     break;
                 case e.target.classList.contains(`sign-k`):
-                    if (number.length === 0 && lcd.textContent.length === 0 || lcd.textContent === `.`) return;
-                    else if (number.length > 0 && lcd.textContent.length > 0 && lcd.textContent !== `.`) {
-                        lcd.textContent = operate(number, lcd.textContent, operator);
-                        number = ``;
-                    }
-                    operator = e.target.textContent;
-                    if (screenUpdate === true) {
-                        number = lcd.textContent;
-                        lcd.textContent = ``;
-                    }
-                    operationScreen.textContent = `${number} ${operator}`;
-                    screenUpdate = false;
+                    operationButtons (lcd, operationScreen, e.target, screenUpdate);
                     break;
                 case e.target.classList.contains(`dot`):
                     screenUpdate = writeDot(lcd, e.target);
@@ -123,6 +104,13 @@ function deleteButton(lcd) {
     }
 }
 
+function clearAllButton(lcd, operationScreen) {
+    lcd.textContent = ``;
+    operationScreen.textContent = ``;
+    number = ``;
+    operator = ``;   
+}
+
 function signButton(lcd) {
     if (!lcd.textContent.includes(`-`)){
         if (lcd.textContent === `0` || lcd.textContent.length === 0) {
@@ -135,4 +123,26 @@ function signButton(lcd) {
     }
 }
 
+function equalButton(lcd, operationScreen, operate) {
+    if (number.length > 0 && lcd.textContent.length > 0 && lcd.textContent !== `.`) {
+        operationScreen.textContent = `${number} ${operator} ${lcd.textContent} =`;
+        lcd.textContent = operate(number, lcd.textContent, operator);
+        number = ``;
+        operator= ``;
+    }
+}
 
+function operationButtons (lcd, operationScreen, e, screenUpdate) {
+    if (number.length === 0 && lcd.textContent.length === 0 || lcd.textContent === `.`) return;
+    else if (number.length > 0 && lcd.textContent.length > 0 && lcd.textContent !== `.`) {
+        lcd.textContent = operate(number, lcd.textContent, operator);
+        number = ``;
+    }
+    operator = e.textContent;
+    if (screenUpdate === true) {
+        number = lcd.textContent;
+        lcd.textContent = ``;
+    }
+    operationScreen.textContent = `${number} ${operator}`;
+    screenUpdate = false;  
+}
