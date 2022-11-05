@@ -19,9 +19,6 @@ body {
 
 main {
     flex-grow: 1;
-    /* background-image: url(./assets/images/back_to_school_student-15.jpg);
-    background-size: 15%;
-    background-repeat: repeat; */
     padding: 1rem 0;
     width: 100%;
     max-width: 1500px;
@@ -68,7 +65,7 @@ main {
 .keyboard-container {
     flex-basis: 80%;
     display: grid;
-    grid-template-areas: "CA C sign sign-div"
+    grid-template-areas: "AC C sign sign-div"
                          "seven eight nine sign-mul"
                          "four five six sign-min"
                          "one two three sign-plu"
@@ -105,8 +102,8 @@ main {
     background-color: #ffd95c;
 }
 
-.Ca {
-    grid-area: CA;
+.Ac {
+    grid-area: AC;
 }
 
 .C {
